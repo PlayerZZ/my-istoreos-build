@@ -56,7 +56,13 @@ jobs:
           make download -j8
           make -j$(nproc) || make -j1 V=s
 
-      - name: Upload firmware
+      - name: Upload firmware to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: istoreos-x86_64-firmware
+          path: openwrt/bin/targets/x86/64/*combined*.img.gz
+
+      - name: Upload firmware to Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: istoreos-${{ github.run_number }}
